@@ -709,10 +709,14 @@ const getAllAnalytics = asyncHandler(async (req, res, next) => {
       if (!userId) {
          throw new ApiError(401, "Unauthorized request");
       }
+      const user = await User.findById(userId);
+
+      if(!user){
+         throw new ApiError(401, "Unauthorized request");
+      }
 
       const allStates = ["backlog", "todo", "inprogress", "done"];
       const allPriorities = ["low", "moderate", "high"];
-
       const analytics = await Task.aggregate([
          {
             $match: {

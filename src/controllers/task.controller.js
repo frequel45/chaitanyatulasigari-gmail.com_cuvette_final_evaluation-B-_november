@@ -714,7 +714,7 @@ const getAllAnalytics = asyncHandler(async (req, res, next) => {
       const analytics = await Task.aggregate([
          {
             $match: {
-               owner: userId,
+               $or: [{ owner: userId }, { assignedTo: user.email }],
             },
          },
          {

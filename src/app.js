@@ -4,15 +4,13 @@ import cookieParser from "cookie-parser";
 
 const app = express();
 
-// CORS configuration
 const allowedOrigins = [
-  'http://localhost:5173', // Add your local frontend origin
-  'https://project-manager-frontend-psi.vercel.app' // Add your deployed frontend origin if applicable
+  'http://localhost:5173',
+  'https://project-manager-frontend-psi.vercel.app'
 ];
 
 app.use(cors({
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl requests)
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
       const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
@@ -20,7 +18,7 @@ app.use(cors({
     }
     return callback(null, true);
   },
-  credentials: true // Enable credentials if you're using cookies or HTTP authentication
+  credentials: true 
 }));
 
 app.use(express.json({ limit: "16kb" }));

@@ -146,9 +146,11 @@ const updateTask = asyncHandler(async (req, res, next) => {
          task.checklist = checklist;
       }
 
-      if (assignedTo) {
+      // No need to check here as if it contains automatically update it
+
+      // if (assignedTo) {
          task.assignedTo = assignedTo;
-      }
+      // }
 
       await task.save();
 

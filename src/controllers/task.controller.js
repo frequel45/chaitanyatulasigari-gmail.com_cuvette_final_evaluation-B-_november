@@ -437,13 +437,14 @@ const getFormattedTasksThisWeek = async (req, res, next) => {
          throw new ApiError(401, "Unauthorized access");
       }
 
-      const startOfPeriod = new Date();
-      startOfPeriod.setHours(0, 0, 0, 0);
-
       const endOfPeriod = new Date();
-      endOfPeriod.setDate(endOfPeriod.getDate() + 7);
       endOfPeriod.setHours(23, 59, 59, 999);
 
+      const startOfPeriod = new Date();
+      startOfPeriod.setDate(startOfPeriod.getDate() - 7);
+      startOfPeriod.setHours(0, 0, 0, 0);
+
+      console.log(startOfPeriod, endOfPeriod);
       const tasks = await Task.aggregate([
          {
             $match: {
